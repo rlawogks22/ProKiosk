@@ -1,20 +1,19 @@
 package Kiosk;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class Order { //주문 클래스
     //private List<FoodMenu> shop;
 
     private Map<FoodMenu, Integer> shop;
     private int ordernum;
-
+    private Map<String, Integer> oderMap;
     public Order() {
         // shop = new ArrayList<>();
         shop = new HashMap<>();
         ordernum = 1;
+        oderMap = new HashMap<String, Integer>();
     }
 
     public int getOrdernum() {
@@ -47,6 +46,13 @@ public class Order { //주문 클래스
             total += menu.getKey().getPrice() * menu.getValue();
         }
         return total;
+    }
+
+    public void totallist(){
+        for(var menu : shop.entrySet()){
+            oderMap.put(menu.getKey().getName(),menu.getKey().getPrice());
+        }
+        System.out.println(oderMap);
     }
 
     public void totaltime(){

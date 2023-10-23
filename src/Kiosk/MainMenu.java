@@ -1,14 +1,13 @@
 package Kiosk;
 
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class MainMenu {
     List<FoodMenu> coffeMenu = new ArrayList<>();
     List<FoodMenu> teeMenu = new ArrayList<>();
     List<FoodMenu> adeMenu = new ArrayList<>();
     Order order = new Order();
+    double money;
     Scanner scd = new Scanner(System.in);
     public MainMenu(){
         coffeMenu.add((new FoodMenu(50,"아메리카노" ,2500,"아메리카노")));
@@ -51,6 +50,7 @@ public class MainMenu {
         }
 
 
+
 //        for(Map.Entry<FoodMenu, Integer> entry : shop.entrySet()) {
 //            System.out.println(entry.getValue() + entry.getKey());
 //        }
@@ -61,14 +61,26 @@ public class MainMenu {
 //            System.out.print(menu.getName()+ ","  + menu.getPrice());
 //        }
         System.out.println("총 값 : " + order.totalprice()+" 원");
+        money += order.totalprice(); // 총 판매액 구하기
+
         System.out.print("소요시간 : ");
-        order.totaltime();
+        order.totaltime(); // 총 소요 시간 구하기
         System.out.println("=======================================");
         System.out.print("번호 입력 : ");
         int ch = scd.nextInt();
         scd.nextLine();
 
         switch (ch){
+            case 0:
+                order.totallist();
+                System.out.print("현재 까지 판매 금액은 : ");
+                System.out.println("[ "+ money+" ] 원 입니다.");
+                System.out.println("1. 돌아가기");
+                int mn = scd.nextInt();
+                if(mn == 1){
+                    showMenu();
+                }
+                break;
             case 1:
                 showCoffe();
                 break;
@@ -119,6 +131,8 @@ public class MainMenu {
 
         showMenu();
     }
+
+
     public void showTee(){
         System.out.println();
         System.out.println("Tee");
@@ -208,6 +222,7 @@ public class MainMenu {
         scd.nextLine();
 
         if(chnum == 1){
+            order.totallist();
             OrderComplte();
         } else if (chnum == 2) {
             showMenu();
@@ -216,9 +231,7 @@ public class MainMenu {
 
     public void OrderComplte(){
         int ordernum = order.getOrdernum();
-
         System.out.println("주문 완료");
-
         order.Outshop();
         order.setOrdernum(ordernum + 1);
 
@@ -240,4 +253,7 @@ public class MainMenu {
         }
         showMenu();
     }
+
+
+
 }
