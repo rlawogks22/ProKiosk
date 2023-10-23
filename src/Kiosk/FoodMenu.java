@@ -3,7 +3,7 @@ package Kiosk;
 import java.awt.*;
 
 public class FoodMenu extends Menu {
-    private int key;
+    public int key;
     private String name;
     private int price;
     private String catal;
@@ -13,6 +13,10 @@ public class FoodMenu extends Menu {
         this.name = name;
         this.price = price;
         this.catal = catal;
+    }
+
+    public int getKey() {
+        return key+1;
     }
 
     public String getName() {
