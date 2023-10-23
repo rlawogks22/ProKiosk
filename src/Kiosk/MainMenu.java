@@ -72,7 +72,7 @@ public class MainMenu {
 
         switch (ch){
             case 0:
-                order.totallist();
+                order.totallist(); // 판매목록
                 System.out.print("현재 까지 판매 금액은 : ");
                 System.out.println("[ "+ money+" ] 원 입니다.");
                 System.out.println("1. 돌아가기");
