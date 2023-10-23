@@ -11,23 +11,23 @@ public class MainMenu {
     Order order = new Order();
     Scanner scd = new Scanner(System.in);
     public MainMenu(){
-        coffeMenu.add((new FoodMenu(0,"아메리카노" ,2500,"아메리카노")));
-        coffeMenu.add((new FoodMenu(0,"에스프레소" ,1500,"에스프레소")));
-        coffeMenu.add((new FoodMenu(0,"카페모카" ,1800,"카페모카")));
-        coffeMenu.add((new FoodMenu(0,"카페라떼" ,1900,"카페라떼")));
-        coffeMenu.add((new FoodMenu(0,"콜드브루" ,2000,"콜드브루")));
+        coffeMenu.add((new FoodMenu(50,"아메리카노" ,2500,"아메리카노")));
+        coffeMenu.add((new FoodMenu(50,"에스프레소" ,1500,"에스프레소")));
+        coffeMenu.add((new FoodMenu(100,"카페모카" ,1800,"카페모카")));
+        coffeMenu.add((new FoodMenu(80,"카페라떼" ,1900,"카페라떼")));
+        coffeMenu.add((new FoodMenu(20,"콜드브루" ,2000,"콜드브루")));
 
 
-        teeMenu.add((new FoodMenu(0,"아이스티" ,3000,"아이스티")));
-        teeMenu.add((new FoodMenu(0,"허브티" ,2500,"허브티")));
-        teeMenu.add((new FoodMenu(0,"생강차" ,2000,"생강차")));
-        teeMenu.add((new FoodMenu(0,"홍차" ,4000,"홍차")));
+        teeMenu.add((new FoodMenu(40,"아이스티" ,3000,"아이스티")));
+        teeMenu.add((new FoodMenu(50,"허브티" ,2500,"허브티")));
+        teeMenu.add((new FoodMenu(100,"생강차" ,2000,"생강차")));
+        teeMenu.add((new FoodMenu(70,"홍차" ,4000,"홍차")));
 
-        adeMenu.add((new FoodMenu(0,"레몬에이드" ,3000,"레몬에이드")));
-        adeMenu.add((new FoodMenu(0,"자몽에이드" ,2500,"자몽에이드")));
-        adeMenu.add((new FoodMenu(0,"청포도에이드" ,2500,"청포도에이드")));
-        adeMenu.add((new FoodMenu(0,"블루에이드" ,3300,"블루에이드")));
-        adeMenu.add((new FoodMenu(0,"자두에이드" ,3100,"자두에이드")));
+        adeMenu.add((new FoodMenu(30,"레몬에이드" ,3000,"레몬에이드")));
+        adeMenu.add((new FoodMenu(30,"자몽에이드" ,2500,"자몽에이드")));
+        adeMenu.add((new FoodMenu(40,"청포도에이드" ,2500,"청포도에이드")));
+        adeMenu.add((new FoodMenu(50,"블루에이드" ,3300,"블루에이드")));
+        adeMenu.add((new FoodMenu(10,"자두에이드" ,3100,"자두에이드")));
 
     }
 
@@ -47,8 +47,7 @@ public class MainMenu {
         Map<FoodMenu,Integer> shop = order.getShop();
         //List<FoodMenu> shop = order.getShop();
         for(FoodMenu menu : shop.keySet()){
-            int i = 0;
-            System.out.println(menu.getName()+", "+ menu.getPrice() +", " + shop.get(menu) + "개");
+            System.out.println(menu.getName()+", "+ menu.getPrice() +", " + shop.get(menu) + "개"); //시간 추가
         }
 
 
@@ -62,6 +61,8 @@ public class MainMenu {
 //            System.out.print(menu.getName()+ ","  + menu.getPrice());
 //        }
         System.out.println("총 값 : " + order.totalprice()+" 원");
+        System.out.print("소요시간 : ");
+        order.totaltime();
         System.out.println("=======================================");
         System.out.print("번호 입력 : ");
         int ch = scd.nextInt();
@@ -178,19 +179,29 @@ public class MainMenu {
         showMenu();
     }
 
-    public void showOrder(){ //장바구니
+    public void showOrder() { //장바구니
         System.out.println("주문 확인 ");
         System.out.println("[ 주문 ]");
-        Map<FoodMenu,Integer> shop = order.getShop();
+        Map<FoodMenu, Integer> shop = order.getShop();
         //List<FoodMenu> shop = order.getShop();
 
 //        for(int i = 0; i<shop.size(); i++){
 //            FoodMenu menu = shop.get(i);
 //            System.out.println(menu.getName() + menu.getPrice() + "," + menu.getCatal());
 //        }
-        System.out.println();
         System.out.println(" 총 값");
         System.out.println(order.totalprice() + "원 ");
+        System.out.print("금액 투입 : ");
+        int won = scd.nextInt();
+        System.out.println(won + " 원");
+        if (won < order.totalprice()) {
+            System.out.println("금액이 모자랍니다.");
+            showMenu();
+        } else{
+            System.out.println();
+        System.out.print("잔액 : ");
+        System.out.println(won - order.totalprice());
+    }
 
         System.out.println("1.주문  2. 메뉴판");
         int chnum = scd.nextInt();
@@ -207,8 +218,6 @@ public class MainMenu {
         int ordernum = order.getOrdernum();
 
         System.out.println("주문 완료");
-
-
 
         order.Outshop();
         order.setOrdernum(ordernum + 1);

@@ -41,10 +41,6 @@ public class Order { //주문 클래스
         shop.clear();
     }
 
-    public void Receipt(){
-
-    }
-
     public int totalprice() {
         int total = 0;
         for (var menu : shop.entrySet()) {
@@ -52,5 +48,18 @@ public class Order { //주문 클래스
         }
         return total;
     }
+
+    public void totaltime(){
+        int totalti = 0;
+        for(var menu : shop.entrySet()){
+            totalti += menu.getKey().gettime() * menu.getValue();
+        }
+        int hour = (totalti/60)/60;
+        int min = (totalti/60)%60;
+        int sec = (totalti%60);
+        System.out.println(hour + "시 " + min + "분 " + sec+" 초");
+
+    }
+
 }
 
